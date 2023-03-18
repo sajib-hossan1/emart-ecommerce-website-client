@@ -1,0 +1,48 @@
+.footer-main {
+    background: linear-gradient(to top, #172337 0%, #172337 100%);
+    padding: 30px 0;
+}
+
+.footer-main hr {
+    color: gray;
+}
+
+.footer-about-b h5 {
+    color: gray;
+    font-weight: 400;
+    margin-bottom: 15px;
+    font-size: 17px;
+}
+
+.footer-about-b p {
+    margin-bottom: 10px;
+}
+.footer-about-b p a {
+    color: white;
+    text-decoration: none;
+}
+.footer-about-b p a:hover {
+    text-decoration: underline;
+}
+
+
+.payment-method {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.payment-method p {
+    color: white;
+    margin: 0;
+    font-size: 20px;
+}
+
+.payment-method img {
+    width: 350px;
+}
+
+.copyright {
+    color: white;
+    margin: 0;
+    text-align: center;
+}

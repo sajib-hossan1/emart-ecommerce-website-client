@@ -1,0 +1,51 @@
+.browseProducts-main {
+    margin-bottom: 50px;
+}
+
+.browseProducts-main .row {
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+    padding: 20px 20px 0px 20px;
+    border-radius: 20px;
+}
+
+.p-min-box {
+    margin-bottom: 30px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.p-min-box img {
+    width: 200px;
+    height: 200px;
+}
+
+
+.p-min-box:hover {
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.p-min-box:hover img {
+    transform: scale(1.01);
+}
+
+
+.p-min-box p {
+    margin: 0;
+    font-weight: 500;
+}
+
+.btn-div  {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.btn-div button {
+    background-color: #f85506;
+    color: white;
+    border: none;
+    padding: 7px 25px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 500;
+}

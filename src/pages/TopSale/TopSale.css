@@ -1,0 +1,70 @@
+.top-sale-main {
+    margin-bottom: 50px;
+}
+
+.top-sale-main .row{
+    box-shadow: 2px 8px 20px rgba(0, 0, 0, 0.298);
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.top-sale-main h3 {
+    font-size: 17px;
+}
+
+.top-sale-main h3 span{
+    font-size: 20px;
+    color: #F85506;
+}
+
+.top-sale-main .t-sale-box {
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.top-sale-main .t-sale-box img{
+    height: 100%;
+    width: 100%;
+    border-radius: 15px;
+}
+
+.t-sale-box p {
+    text-align: center;
+    animation: blink  .3s linear infinite;
+    margin: 0;
+}
+
+
+
+.t-sale-box:hover img{
+    transform: translateY(-3px);
+    transition: .3s ease;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+}
+
+.t-sale-box:hover p{
+    transform: translateZ(5px);
+    transition: .3s;
+    font-weight: bold;
+}
+
+@keyframes blink {
+    0% {
+        color: black;
+    }
+    100% {
+        color: red;
+    }
+}
+
+
+
+@media only screen and (max-width:450px) {
+    .top-sale-main .t-sale-box {
+        padding: 5px;
+        
+    }
+    .top-sale-main .row{
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.298);
+    }    
+}
