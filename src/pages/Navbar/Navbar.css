@@ -16,6 +16,24 @@
     margin-left: 40px;
     font-size: 18px;
     font-weight: 500;
+    position: relative;
+    color: black;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 3px;
+    background-color: red;
+    left: 0;
+    bottom: -3px;
+    transition: width .3s ease-in-out;
+}
+
+
+.nav-links a:hover::after {
+    width: 100%;
 }
 
 

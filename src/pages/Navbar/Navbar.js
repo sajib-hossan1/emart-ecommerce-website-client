@@ -1,17 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Navbar.css'
 
 const Navbar = () => {
     return (
-        <div className='sticky-top'>
+        <div id='home' className='sticky-top'>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container">
-                    <a className="nav-brand" href="#nav">EMart</a>
+                    <Link className="nav-brand" to="/">EMart</Link>
                     <div>
                         <div className="nav-links">
-                            <a className="nav-link" href="#home">HOME</a>
-                            <a className="nav-link" href="#products">PRODUCTS</a>
-                            <a className="nav-link" href="#products"><i className="fa-solid fa-cart-shopping"/> CART</a>
+                            <Link className="nav-link" to="/">HOME</Link>
+                            <Link className="nav-link" to="/products">PRODUCTS</Link>
+                            <Link className="nav-link" to="/cart"><i className="fa-solid fa-cart-shopping"/> CART</Link>
                         </div>
                     </div>
                     <form className="d-flex search-form" role="search">
