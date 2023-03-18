@@ -14,27 +14,27 @@ const Categories = () => {
                 <h3>Categories</h3>
                 <div className="container mt-3">
                     <div className="row">
-                        <div className="c-box col-md-2">
+                        <div className="c-box col-lg-2 col-md-2 col-3">
                             <img src={category1} alt="" />
                             <p>Mobiles</p>
                         </div>
-                        <div className="c-box col-md-2">
+                        <div className="c-box col-lg-2 col-md-2 col-3">
                             <img src={category2} alt="" />
                             <p>Laptops</p>
                         </div>
-                        <div className="c-box col-md-2">
+                        <div className="c-box col-lg-2 col-md-2 col-3">
                             <img src={category3} alt="" />
                             <p>Home Appliance</p>
                         </div>
-                        <div className="c-box col-md-2">
+                        <div className="c-box col-lg-2 col-md-2 col-3">
                             <img src={category4} alt="" />
                             <p>Fashion</p>
                         </div>
-                        <div className="c-box col-md-2">
+                        <div className="c-box col-lg-2 col-md-2 col-3">
                             <img src={category5} alt="" />
                             <p>Baby Item</p>
                         </div>
-                        <div className="c-box col-md-2">
+                        <div className="c-box col-lg-2 col-md-2 col-3">
                             <img src={category6} alt="" />
                             <p>Grocery</p>
                         </div>

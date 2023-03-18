@@ -12,19 +12,19 @@ const TopSale = () => {
 
                 <div className="container">
                     <div className="row">
-                        <div className="col-lg-4 col-md-4 col-sm-6 col-6">
+                        <div className="col-lg-4 col-md-4 col-sm-4 col-4">
                             <div className="t-sale-box">
                                 <img src={product1} alt="hot-sale-product" />
                                 <p>Iphone 14Pro MAx</p>
                             </div>
                         </div>
-                        <div className="col-lg-4 col-md-4 col-sm-6 col-6">
+                        <div className="col-lg-4 col-md-4 col-sm-4 col-4">
                             <div className="t-sale-box">
                                 <img src={product2} alt="hot-sale-product" />
                                 <p>Jordan Sneakers</p>
                             </div>
                         </div>
-                        <div className="col-lg-4 col-md-4 col-sm-6 col-6 mx-auto">
+                        <div className="col-lg-4 col-md-4 col-sm-4 col-4 mx-auto">
                             <div className="t-sale-box">
                                 <img src={product3} alt="hot-sale-product" />
                                 <p>Artiotic T-Shirt</p>
