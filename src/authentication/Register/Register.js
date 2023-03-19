@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithPopup, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, sendEmailVerification, signInWithPopup, updateProfile } from 'firebase/auth';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import app from '../../firebase/firebase.init';
@@ -8,7 +8,8 @@ const auth = getAuth(app);
 
 const Register = () => {
     const [user, setUser] = useState({});
-    const [passError, setPassError] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [successMessage, setSuccessMesage] = useState("");
 
     // google provider for authentication
     const provider = new GoogleAuthProvider();
@@ -31,29 +32,34 @@ const Register = () => {
     }
 
 
-    const handleregister = e => {
+    const handleregister = (e) => {
         e.preventDefault();
 
         // login validation
         if(!userName){
-            setPassError("Type Your Full Name.");
+            setErrorMessage("Type Your Full Name.");
             return;
         };
         if(!userEmail){
-            setPassError("Type Your Full Email.");
+            setErrorMessage("Type Your Full Email.");
             return;
         };
         if(!userPass){
-            setPassError("Type Your Full Password.");
+            setErrorMessage("Type Your Full Password.");
             return
         };
-        setPassError("");
+        if(userPass.length < 6){
+            setErrorMessage("Password should be atleaset 6 characters.");
+            return
+        };
+        setErrorMessage("");
 
+        // regular expression authentication
         if(!/(?=.*[A-Z])/.test(userPass)){
-            setPassError("Please use atleast one uppercase letter (A-Z)");
+            setErrorMessage("Please use atleast one uppercase letter (A-Z)");
             return;
         };
-        setPassError("");
+        setErrorMessage("");
 
         // login authentication
         createUserWithEmailAndPassword(auth,userEmail,userPass)
@@ -66,15 +72,28 @@ const Register = () => {
                 photoURL : ""
             })
             .then( () => "")
-            .catch(error => error.message);
+            .catch(error => setErrorMessage(error.message));
 
+            // verify user email
+            emailVerification();
+
+            // set user
             setUser(user)
-
         })
-        .catch( error => console.log(error.message) );
+        .catch( error => setErrorMessage(error.message) );
 
         // clear the form
         e.target.reset();
+    };
+
+
+    // user email verification
+    const emailVerification = () => {
+        sendEmailVerification(auth.currentUser)
+        .then( () => {
+            // email verification send.
+            setSuccessMesage("Please check your email and verify.")
+        })
     };
 
     
@@ -84,14 +103,11 @@ const Register = () => {
         .then( result => {
             const user = result.user;
             setUser(user);
-            console.log(user);
         })
         .catch( error => {
             const errorMessage = error.message;
-            console.log(errorMessage);
         } );
     };
-
 
     return (
         <div className='register-main mb-5'>
@@ -111,7 +127,8 @@ const Register = () => {
                         <div className="form-group">
                             <label htmlFor="exampleInputPassword1">Password</label>
                             <input onBlur={handlePass} type="password" name="password" className="form-control" placeholder="Password"/>
-                            { passError && <p className='m-0 text-danger'>{passError}</p>}
+                            { errorMessage && <p className='m-0 text-danger'>{errorMessage}</p>}
+                            { successMessage && <p className='m-0 text-danger'>{successMessage}</p>}
                         </div>
                         <button type="submit" className="btn btn-primary mt-2 mb-2">Submit</button>
                     </form>

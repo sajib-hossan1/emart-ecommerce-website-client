@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './LogIn.css'
-import { getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
+import { getAuth, GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import app from '../../firebase/firebase.init';
 import { Link } from 'react-router-dom';
 
@@ -9,6 +9,8 @@ const auth = getAuth(app);
 
 const LogIn = () => {
     const [user, setUser] = useState({});
+    const [errorMessage, setErrorMessage] = useState("");
+    const [successMessage, setSuccessMesage] = useState("");
 
     // user info states
     const [userEmail, setNewUserEmail] = useState("");
@@ -19,7 +21,6 @@ const LogIn = () => {
     const handleEmail = (e) => {
         setNewUserEmail(e.target.value)
     };
-
     const handlePass = (e) => {
         setNewUserPass(e.target.value)
     };
@@ -35,11 +36,14 @@ const LogIn = () => {
 
         // login validation
         if(!userEmail){
-            return alert("Type Your Email...")
+            setErrorMessage("Type Your Email.");
+            return;
         };
         if(!userPass){
-            return alert("Type Your Password...")
+            setErrorMessage("Type Your Password.");
+            return;
         };
+        setErrorMessage("");
 
         // user login authentication
         signInWithEmailAndPassword(auth,userEmail, userPass)
@@ -47,8 +51,37 @@ const LogIn = () => {
             const user = userCredential.user;
             setUser(user);
         })
-        .catch( error => console.log(error.message));
-    }
+        .catch( error => {
+            const errorMessage = error.message;
+            if(errorMessage === "Firebase: Error (auth/user-not-found)."){
+                setErrorMessage("User Not Found.");
+            }
+        });
+
+        setErrorMessage("");
+
+        // clear the form
+        e.target.reset();
+    };
+
+    // forget password
+    const handleForgetPassword = () => {
+        sendPasswordResetEmail(auth,userEmail)
+        .then( () => {
+            setSuccessMesage("Please check your email for forget password");
+            setErrorMessage("");
+        })
+        .catch( error => {
+            if(error.message === "Firebase: Error (auth/missing-email)."){
+                setErrorMessage("Please provide email to forget password.")
+            };
+            
+            if(error.message === "Firebase: Error (auth/user-not-found)."){
+                setErrorMessage("User not found with this email.")
+            };
+        });
+        setErrorMessage("");
+    };
 
     // google signin authentication
     const googleSignIn = () => {
@@ -78,6 +111,9 @@ const LogIn = () => {
                         <div className="form-group">
                             <label htmlFor="exampleInputPassword1">Password</label>
                             <input onBlur={handlePass} type="password" name="password" className="form-control" placeholder="Password"/>
+                            <p onClick={handleForgetPassword} className='btn btn-link'>Forget Password?</p>
+                            { errorMessage && <p className='m-0 text-danger'>{errorMessage}</p>}
+                            { successMessage && <p className='m-0 text-danger'>{successMessage}</p>}
                         </div>
                         <button type="submit" className="btn btn-primary mt-2 mb-2">Submit</button>
                     </form>
