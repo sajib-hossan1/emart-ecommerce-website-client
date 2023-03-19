@@ -1,0 +1,19 @@
+.register-main h1 {
+    text-align: center;
+    padding: 10px;
+}
+
+.register-box {
+    margin: 0 auto;
+    padding: 20px;
+    width: 600px;
+    box-shadow: 2px 8px 20px rgba(0, 0, 0, 0.298);
+    border-radius: 20px;
+}
+
+
+@media only screen and (max-width:768px){
+    .register-box {
+        width: 100%;
+    }
+}

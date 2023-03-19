@@ -16,7 +16,6 @@
 }
 
 .p-min-box img {
-    width: 200px;
     height: 200px;
 }
 
@@ -48,4 +47,11 @@
     border-radius: 50px;
     font-size: 18px;
     font-weight: 500;
+}
+
+
+@media only screen and (max-width:560px){
+    .p-min-box img {
+        height: 150px;
+    }
 }
