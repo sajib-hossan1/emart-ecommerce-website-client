@@ -1,19 +1,14 @@
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, sendEmailVerification, signInWithPopup, updateProfile } from 'firebase/auth';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import app from '../../firebase/firebase.init';
+import { updateProfile } from 'firebase/auth';
+import React, { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../contexts/UserContext';
 import './Register.css'
-
-const auth = getAuth(app);
+import { toast } from 'react-toastify';
 
 const Register = () => {
-    const [user, setUser] = useState({});
     const [errorMessage, setErrorMessage] = useState("");
-    const [successMessage, setSuccessMesage] = useState("");
 
-    // google provider for authentication
-    const provider = new GoogleAuthProvider();
-
+    const { setUser, createUser, googleSignIn, emailVerification, loading, setLoading} = useContext(AuthContext);
 
     // user info states
     const [userName, setUserName] = useState("");
@@ -29,7 +24,35 @@ const Register = () => {
     };
     const handlePass = (e) => {
         setUserPass(e.target.value);
-    }
+    };
+
+    const navigate = useNavigate();
+
+
+    
+    // toastify success messages
+    const notify = (status) => {
+        if(status === "userCreated"){
+            toast.success("User created successfully😍");
+        };
+        if(status === "googleSignIn"){
+            toast.success("Successfully SignIn with Google😍");
+        };
+        if(status === "emailVerify"){
+            toast.info("Please check your email and verify😉");
+        };
+    };
+
+
+    
+    // user email verification
+    const verifyEmail = () => {
+        emailVerification()
+        .then( () => {
+            // email verification send.
+            notify("emailVerify");
+        })
+    };
 
 
     const handleregister = (e) => {
@@ -46,11 +69,11 @@ const Register = () => {
         };
         if(!userPass){
             setErrorMessage("Type Your Full Password.");
-            return
+            return;
         };
         if(userPass.length < 6){
             setErrorMessage("Password should be atleaset 6 characters.");
-            return
+            return;
         };
         setErrorMessage("");
 
@@ -62,7 +85,7 @@ const Register = () => {
         setErrorMessage("");
 
         // login authentication
-        createUserWithEmailAndPassword(auth,userEmail,userPass)
+        createUser(userEmail,userPass)
         .then( (userCredential) => {
             const user = userCredential.user;
 
@@ -75,38 +98,42 @@ const Register = () => {
             .catch(error => setErrorMessage(error.message));
 
             // verify user email
-            emailVerification();
+            verifyEmail();
 
             // set user
-            setUser(user)
+            setUser(user);
+            notify("userCreated");
+            setLoading(false);
+            navigate("/");
         })
-        .catch( error => setErrorMessage(error.message) );
+        .catch( error => {
+            setLoading(false);
+            if(error.message === "Firebase: Error (auth/email-already-in-use)."){
+                return setErrorMessage("Already have an account with this e-mail. Please Login.");
+            };
+        } );
 
         // clear the form
         e.target.reset();
     };
 
 
-    // user email verification
-    const emailVerification = () => {
-        sendEmailVerification(auth.currentUser)
-        .then( () => {
-            // email verification send.
-            setSuccessMesage("Please check your email and verify.")
-        })
-    };
-
     
     // google signin authentication
-    const googleSignIn = () => {
-        signInWithPopup(auth, provider)
+    const googleSignInFunc = () => {
+        googleSignIn()
         .then( result => {
             const user = result.user;
             setUser(user);
+            setLoading(false);
+            notify("googleSignIn");
+            navigate("/");
         })
         .catch( error => {
             const errorMessage = error.message;
+            return setErrorMessage(errorMessage);
         } );
+        
     };
 
     return (
@@ -127,15 +154,20 @@ const Register = () => {
                         <div className="form-group">
                             <label htmlFor="exampleInputPassword1">Password</label>
                             <input onBlur={handlePass} type="password" name="password" className="form-control" placeholder="Password"/>
+                            { loading && <div className='mt-3'>
+                                            <div className="spinner-border text-primary" role="status">
+                                                <span className="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                            }
                             { errorMessage && <p className='m-0 text-danger'>{errorMessage}</p>}
-                            { successMessage && <p className='m-0 text-danger'>{successMessage}</p>}
                         </div>
                         <button type="submit" className="btn btn-primary mt-2 mb-2">Submit</button>
                     </form>
                     <p>Already haven an account? Please <Link to="/login">Log In Here</Link></p>
                     <hr />
                     <div className='text-center'>
-                        <button onClick={googleSignIn} className="btn btn-primary">Google Sign In</button>
+                        <button onClick={googleSignInFunc} className="btn btn-primary">Google Sign In</button>
                     </div>
                 </div>
             </div>

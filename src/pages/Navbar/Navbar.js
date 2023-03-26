@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { AuthContext } from '../../contexts/UserContext';
 import './Navbar.css'
 
 const Navbar = () => {
-    const user = false;
+    const {user, logOut, setUser} = useContext(AuthContext);
+
+    const signOut = () => {
+        logOut()
+        .then( () => {
+            toast.success("Log Out successfully😉");
+            setUser({});
+        })
+    }
+
     return (
         <div id='home' className='sticky-top'>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -12,12 +23,12 @@ const Navbar = () => {
                     <div>
                         <div className="nav-links">
                             <Link className="nav-link" to="/">HOME</Link>
+                            <Link className="nav-link" to="/cart"><i className="fa-solid fa-cart-shopping"/> CART</Link>
                             {
-                                user ? <Link className="nav-link" to="/products">PRODUCTS</Link>
+                                user.email ? <Link onClick={signOut} className="nav-link" to="/">LOGOUT</Link>
                                 :
                                 <Link className="nav-link" to="/login">LOGIN</Link>
                             }
-                            <Link className="nav-link" to="/cart"><i className="fa-solid fa-cart-shopping"/> CART</Link>
                         </div>
                     </div>
                     <form className="d-flex search-form" role="search">

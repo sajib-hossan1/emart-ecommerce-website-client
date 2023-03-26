@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './LogIn.css'
-import { getAuth, GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
-import app from '../../firebase/firebase.init';
-import { Link } from 'react-router-dom';
-
-const auth = getAuth(app);
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../contexts/UserContext';
+import 'react-responsive-modal/styles.css';
+import { Modal } from 'react-responsive-modal';
+import { toast } from 'react-toastify';
 
 
 const LogIn = () => {
-    const [user, setUser] = useState({});
     const [errorMessage, setErrorMessage] = useState("");
-    const [successMessage, setSuccessMesage] = useState("");
+
+    // states for modals
+    const [open, setOpen] = useState(false);
+    const onOpenModal = () => setOpen(true);
+    const onCloseModal = () => setOpen(false);
+
+    // getting from context api
+    const {loginUser, setUser, forgetPassword, googleSignIn, emailVerification, loading, setLoading} = useContext(AuthContext);
 
     // user info states
     const [userEmail, setNewUserEmail] = useState("");
@@ -25,9 +31,23 @@ const LogIn = () => {
         setNewUserPass(e.target.value)
     };
 
+    const navigate = useNavigate();
 
-    // google provider for google authentication
-    const provider = new GoogleAuthProvider();
+    // toastify success messages
+    const notify = (status) => {
+        if(status === "loggedIn"){
+            toast.success("You are successfully logged in😍");
+        };
+        if(status === "forgetPass"){
+            toast.info("Please check your email for forget password😉");
+        };
+        if(status === "googleSignIn"){
+            return toast.success("Successfully SignIn with Google😍");
+        };
+        if(status === "emailVerify"){
+            toast.info("Please check your email and verify then login again😉");
+        };
+    };
 
 
     // user login authentication
@@ -43,19 +63,38 @@ const LogIn = () => {
             setErrorMessage("Type Your Password.");
             return;
         };
+        if(userPass.length < 6){
+            setErrorMessage("Please provide atleast 6 characters.");
+            return;
+        };
+        if(!/(?=.*[A-Z])/.test(userPass)){
+            setErrorMessage("Please provide one uppercase (A-Z)");
+            return;
+        };
         setErrorMessage("");
 
         // user login authentication
-        signInWithEmailAndPassword(auth,userEmail, userPass)
+        loginUser(userEmail, userPass)
         .then( userCredential => {
             const user = userCredential.user;
+            setLoading(false);
             setUser(user);
+            notify("loggedIn");
+            navigate("/");
         })
         .catch( error => {
+            setLoading(false);
             const errorMessage = error.message;
+            console.log(errorMessage);
             if(errorMessage === "Firebase: Error (auth/user-not-found)."){
-                setErrorMessage("User Not Found.");
-            }
+                return setErrorMessage("User Not Found.");
+            };
+            if(errorMessage === "Firebase: Error (auth/wrong-password)."){
+                return setErrorMessage("Your E-mail or Password is wrong.");
+            };
+            if(errorMessage === "Firebase: Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. (auth/too-many-requests)."){
+                return setErrorMessage("You attempts too many times. Please restore your password.");
+            };
         });
 
         setErrorMessage("");
@@ -66,36 +105,56 @@ const LogIn = () => {
 
     // forget password
     const handleForgetPassword = () => {
-        sendPasswordResetEmail(auth,userEmail)
+        if(!userEmail){
+             return setErrorMessage("Please provide your e-mail to forget password.");
+        };
+        forgetPassword(userEmail)
         .then( () => {
-            setSuccessMesage("Please check your email for forget password");
+            notify("forgetPass");
+            setLoading(false);
             setErrorMessage("");
         })
         .catch( error => {
+            setLoading(false);
             if(error.message === "Firebase: Error (auth/missing-email)."){
-                setErrorMessage("Please provide email to forget password.")
+                return setErrorMessage("Please provide email to forget password.")
             };
             
             if(error.message === "Firebase: Error (auth/user-not-found)."){
-                setErrorMessage("User not found with this email.")
+                return setErrorMessage("User not found with this email.")
             };
         });
         setErrorMessage("");
     };
 
     // google signin authentication
-    const googleSignIn = () => {
-        signInWithPopup(auth, provider)
+    const googleSignInFunc = () => {
+        googleSignIn()
         .then( result => {
             const user = result.user;
             setUser(user);
-            console.log(user);
+            notify("googleSignIn");
+            setLoading(false);
+            navigate("/");
         })
         .catch( error => {
             const errorMessage = error.message;
             console.log(errorMessage);
         } );
     };
+
+    const verifyEmail = () => {
+        emailVerification()
+        .then( () => {
+            // email verification send.
+            notify("emailVerify");
+            setLoading(false);
+            setErrorMessage("")
+            setOpen(false);
+            navigate("/");
+        });
+        
+    }
 
     return (
         <div className='login-main mb-5'>
@@ -111,29 +170,46 @@ const LogIn = () => {
                         <div className="form-group">
                             <label htmlFor="exampleInputPassword1">Password</label>
                             <input onBlur={handlePass} type="password" name="password" className="form-control" placeholder="Password"/>
+                            { loading && <div className='mt-3'>
+                                            <div className="spinner-border text-primary" role="status">
+                                                <span className="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                            }
                             <p onClick={handleForgetPassword} className='btn btn-link'>Forget Password?</p>
                             { errorMessage && <p className='m-0 text-danger'>{errorMessage}</p>}
-                            { successMessage && <p className='m-0 text-danger'>{successMessage}</p>}
                         </div>
                         <button type="submit" className="btn btn-primary mt-2 mb-2">Submit</button>
                     </form>
                     <p>Havent't any account? Please <Link to="/register">Register Here</Link></p>
                     <hr />
+                    <div className="text-center">
+                        <button onClick={onOpenModal} className='btn btn-primary btn-sm'>E-mail Verification</button>
+                    </div>
+                    <hr />
                     <div className='text-center'>
-                        <button onClick={googleSignIn} className="btn btn-primary">Google Sign In</button>
+                        <button onClick={googleSignInFunc} className="btn btn-primary">Google Sign In</button>
                     </div>
                 </div>
 
 
-                {/* { user.email ? <></> : <button onClick={handleGsign}>Google SignIn</button>}
-                {
-                    user.email && <div>
-                            <h3>Logged In User : {user.displayName} </h3>
-                            <p>Email : {user.email}</p>
-                            <img className='rounded rounded-5' src={user.photoURL} alt="" />
-                    </div>
-                }
-                { user.email && <button onClick={handleSignOut}>Sign Out</button>} */}
+                {/* modal for email verification */}
+                <Modal open={open} onClose={onCloseModal} center>
+                    <h3 className='me-5'>E-mail verification</h3>
+                    <form className='mb-3 ' onSubmit={handleLogin}>
+                        <div className="form-group">
+                            <label htmlFor="exampleInputEmail1">Email address</label>
+                            <input onBlur={handleEmail} type="email" className="form-control" name="email" placeholder="Enter email"/>
+                        </div>
+                        { loading && <div className='mt-3'>
+                                        <div className="spinner-border text-primary" role="status">
+                                            <span className="visually-hidden">Loading...</span>
+                                        </div>
+                                    </div>
+                        }
+                        <button onClick={verifyEmail} type="submit" className="btn btn-primary mt-2 mb-2">Submit</button>
+                    </form>
+                </Modal>
             </div>
         </div>
     );

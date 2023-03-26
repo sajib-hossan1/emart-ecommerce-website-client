@@ -24,7 +24,7 @@ const Features = () => {
                     </div>
                     <div className="col-lg-4 col-md-6">
                         <div className="feature-box">
-                            <i class="fa-sharp fa-solid fa-right-left"></i>
+                            <i className="fa-sharp fa-solid fa-right-left"></i>
                             <h4>7 Days Replacement</h4>
                         </div>
                         <div className="feature-box">
