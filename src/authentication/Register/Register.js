@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/UserContext';
 import './Register.css'
 import { toast } from 'react-toastify';
+import DynaTitle from '../../Helmet/DynaTitle'
 
 const Register = () => {
     const [errorMessage, setErrorMessage] = useState("");
@@ -138,6 +139,7 @@ const Register = () => {
 
     return (
         <div className='register-main mb-5'>
+            <DynaTitle title="Register" />
             <h1>Register</h1>
             <div className="container">
                 <div className="register-box">

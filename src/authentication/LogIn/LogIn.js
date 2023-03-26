@@ -5,6 +5,7 @@ import { AuthContext } from '../../contexts/UserContext';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import { toast } from 'react-toastify';
+import DynaTitle from '../../Helmet/DynaTitle';
 
 
 const LogIn = () => {
@@ -158,6 +159,7 @@ const LogIn = () => {
 
     return (
         <div className='login-main mb-5'>
+            <DynaTitle title="LogIn"/>
             <h1>Log In</h1>
             <div className="container">
                 <div className="login-box">
