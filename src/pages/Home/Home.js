@@ -1,5 +1,4 @@
-import { React, useContext} from 'react';
-import { AuthContext } from '../../contexts/UserContext';
+import { React } from 'react';
 import Banner from '../Banner/Banner';
 import BrowseProducts from '../BrowseProducts/BrowseProducts';
 import Categories from '../Categories/Categories';
@@ -9,8 +8,6 @@ import TopSale from '../TopSale/TopSale';
 import './Home.css'
 
 const Home = () => {
-    const user = useContext(AuthContext);
-    console.log(user.user);
     return (
         <div>
             <Banner/>

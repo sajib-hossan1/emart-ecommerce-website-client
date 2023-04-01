@@ -145,6 +145,9 @@ const LogIn = () => {
     };
 
     const verifyEmail = () => {
+        if(!userEmail){
+            return setErrorMessage("Type your valid e-mail.");
+        }
         emailVerification()
         .then( () => {
             // email verification send.
@@ -155,7 +158,9 @@ const LogIn = () => {
             navigate("/");
         });
         
-    }
+    };
+
+    console.log(loading);
 
     return (
         <div className='login-main mb-5'>
@@ -203,6 +208,7 @@ const LogIn = () => {
                             <label htmlFor="exampleInputEmail1">Email address</label>
                             <input onBlur={handleEmail} type="email" className="form-control" name="email" placeholder="Enter email"/>
                         </div>
+                        { errorMessage && <p className='m-0 text-danger'>{errorMessage}</p>}
                         { loading && <div className='mt-3'>
                                         <div className="spinner-border text-primary" role="status">
                                             <span className="visually-hidden">Loading...</span>

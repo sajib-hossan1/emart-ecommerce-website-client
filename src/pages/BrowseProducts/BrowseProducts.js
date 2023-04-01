@@ -8,6 +8,7 @@ import product5 from '../../assets/products/5.jpg'
 import product6 from '../../assets/products/6.jpg'
 import product7 from '../../assets/products/7.jpg'
 import product8 from '../../assets/products/8.jpg'
+import { Link } from 'react-router-dom';
 
 const BrowseProducts = () => {
     return (
@@ -67,7 +68,9 @@ const BrowseProducts = () => {
                     </div>
                 </div>
                 <div className='btn-div'>
-                    <button>See All Products</button>
+                    <Link to="products" className='all-products-btn'>
+                        <button>See All Products</button>
+                    </Link>
                 </div>            
             </div>
         </div>

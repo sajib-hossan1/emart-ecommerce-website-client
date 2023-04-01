@@ -7,6 +7,9 @@ import Home from "./pages/Home/Home";
 import Navbar from "./pages/Navbar/Navbar";
 import NotFound from "./pages/NotFound/NotFound";
 import 'react-toastify/dist/ReactToastify.css';
+import Products from "./pages/Products/Products";
+import CatgProducts from "./pages/CatgProducts/CatgProducts";
+import ProductDetails from "./pages/ProductDetails/ProductDetails";
 
 
 function App() {
@@ -16,6 +19,9 @@ function App() {
         <Routes>
             <Route exact path="/" element={<Home />} />
             <Route exact path="/home" element={<Home />} />
+            <Route exact path="/products/" element={<Products />} />
+            <Route exact path="/productDetails/:id" element={<ProductDetails />} />
+            <Route exact path="/category/:categ" element={<CatgProducts />} />
             <Route exact path="/login" element={<LogIn />} />
             <Route exact path="/register" element={<Register />} />
 

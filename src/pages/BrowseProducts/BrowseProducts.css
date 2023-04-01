@@ -49,6 +49,11 @@
     font-weight: 500;
 }
 
+.btn-div .all-products-btn {
+    text-decoration: none;
+    color: white;
+}
+
 
 @media only screen and (max-width:560px){
     .p-min-box img {

@@ -1,0 +1,29 @@
+.product-box {
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+
+.product-link {
+    text-decoration: none;
+    color: black;
+}
+
+.product-img img{
+    width: 100%;
+    height: 150px;
+}
+
+.product-desc .rating {
+    font-weight: 500;
+}
+
+.product-desc .rating i {
+    color: #ffdf00;
+}
+
+.product-desc .price {
+    color: #F85506;
+    font-weight: bold;
+}
