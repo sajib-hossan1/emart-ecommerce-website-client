@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './ProductDetails.css'
 import { useParams } from 'react-router-dom';
 import ReactImageMagnify from 'react-image-magnify';
+import ReactStars from "react-rating-stars-component";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -21,6 +22,7 @@ const ProductDetails = () => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const [data, setData] = useState({});
     const {title, brand , rating, stock, price, description ,images} = data;
+    const [quantity, setquantity] = useState(0);
 
     useEffect( () => {
         setLoad(true)
@@ -36,7 +38,18 @@ const ProductDetails = () => {
         isHintEnabled: true,
         shouldHideHintAfterFirstActivation: false,
         enlargedImagePosition: 'over'
+    };
+
+    const increaseQuan = () => {
+        setquantity(quantity + 1 );
+    };
+    const decreaseQuan = () => {
+        if(quantity === 0){
+            return;
+        };
+        setquantity(quantity - 1 );
     }
+
 
     return (
         <div className='prod-details-main pt-5 pb-5'>
@@ -113,12 +126,27 @@ const ProductDetails = () => {
                         <div className="prod-details">
                             <h2>{title}</h2>
                             <p>Brand : {brand}</p>
-                            <span><i className="fa-solid fa-star"></i> {rating} | {stock} Stocks Left</span>
-                            <h5>Price : ${price}</h5>
-                            <p>
-                                Quantity : <button className="btn btn-danger">-</button> 0 <button className="btn btn-success">+</button>
+                            <span>
+                                <ReactStars
+                                    count={5}
+                                    value={rating}
+                                    edit={false}
+                                    size={24}
+                                    isHalf={true}
+                                    emptyIcon={<i className="far fa-star"></i>}
+                                    halfIcon={<i className="fa fa-star-half-alt"></i>}
+                                    fullIcon={<i className="fa fa-star"></i>}
+                                    activeColor="#ffd700"
+                                />
+                                {stock} Stocks Left
+                            </span>
+                            <h5 className='price'>Price : ${price}</h5>
+                            <p className='quantity'>
+                                Quantity :  <button onClick={decreaseQuan} className="quan-btn ms-2">-</button>
+                                            <span>{quantity}</span>
+                                            <button onClick={increaseQuan} className="quan-btn">+</button>
                             </p>
-                            <button className="btn btn-primary">Add To Cart</button>
+                            <button className="add-to-cart-btn">Add To Cart</button>
                             <p>{description}</p>
                         </div>
                     </div>

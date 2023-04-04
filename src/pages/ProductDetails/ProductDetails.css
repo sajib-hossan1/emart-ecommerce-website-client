@@ -25,3 +25,42 @@
 .swiper-slide img {
     width: 100%;
 }
+
+
+.prod-details .price {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-weight: bolder;
+    font-size: 23px;
+}
+
+.prod-details .quan-btn {
+    background-color: #F85506;
+    border: none;
+    color: white;
+    font-size: 20px;
+    padding: 0px 12px;
+    font-weight: bold;
+}
+
+.prod-details .add-to-cart-btn {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: #f85506;
+    color: white;
+    border: none;
+    padding: 7px 30px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.prod-details .quantity {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.prod-details .quantity span{
+    font-weight: bold;
+    margin: 0 10px;
+    font-size: 20px;
+}
