@@ -2,18 +2,6 @@
     background-color: black;
 }
 
-.prodDetails-sliderImg1 {
-     height: 400px;
-     width: 100%;
-}
-
-.prodDetails-sliderImg2{
-    height: 100px;
-    width: 100px;
-    padding: 5px;
-}
-
-
 .mySwiper .swiper-slide {
     opacity: 0.4;
 }
