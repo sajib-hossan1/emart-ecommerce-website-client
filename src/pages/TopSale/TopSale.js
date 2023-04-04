@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './TopSale.css'
-import product1 from '../../assets/topSale/1.jpg'
-import product2 from '../../assets/topSale/2.jpg'
-import product3 from '../../assets/topSale/3.jpg'
+import { Link } from 'react-router-dom';
 
 const TopSale = () => {
+    const [data, setData] = useState([]);
+
+    useEffect( () => {
+        fetch("http://localhost:5000/topSale")
+        .then(res => res.json())
+        .then(data => setData(data));
+    }, []);
     return (
         <div className='top-sale-main'>
             <div className="container">
@@ -12,24 +17,18 @@ const TopSale = () => {
 
                 <div className="container">
                     <div className="row">
-                        <div className="col-lg-4 col-md-4 col-sm-4 col-4">
-                            <div className="t-sale-box">
-                                <img src={product1} alt="hot-sale-product" />
-                                <p>Iphone 14Pro MAx</p>
-                            </div>
-                        </div>
-                        <div className="col-lg-4 col-md-4 col-sm-4 col-4">
-                            <div className="t-sale-box">
-                                <img src={product2} alt="hot-sale-product" />
-                                <p>Jordan Sneakers</p>
-                            </div>
-                        </div>
-                        <div className="col-lg-4 col-md-4 col-sm-4 col-4 mx-auto">
-                            <div className="t-sale-box">
-                                <img src={product3} alt="hot-sale-product" />
-                                <p>Artiotic T-Shirt</p>
-                            </div>
-                        </div>
+                        {
+                            data.map(item =>
+                                <div key={item._id} className="col-lg-4 col-md-4 col-sm-4 col-4">
+                                    <Link style={{textDecoration : "none"}} to={`/productDetails/${item.id}`}>
+                                        <div className="t-sale-box">
+                                            <img className='img-fluid' src={item.thumbnail} alt="hot-sale-product" />
+                                            <p>{item.title.slice(0,14)}</p>
+                                        </div>
+                                    </Link>
+                                </div>
+                                )
+                        }
                     </div>
                 </div>
             </div>

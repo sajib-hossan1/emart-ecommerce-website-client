@@ -17,15 +17,20 @@
     color: #F85506;
 }
 
+.top-sale-main Link {
+    text-decoration: none;
+}
+
 .top-sale-main .t-sale-box {
     padding: 10px;
     text-align: center;
 }
 
 .top-sale-main .t-sale-box img{
-    height: 70%;
+    height: 150px;
     width: 70%;
     border-radius: 10px;
+    overflow: hidden;
 }
 
 .t-sale-box p {
@@ -59,11 +64,21 @@
 
 
 
+@media only screen and (max-width:767px) {
+    .top-sale-main .t-sale-box img{
+        height: 90px;
+    }
+}
+
 @media only screen and (max-width:450px) {
     .top-sale-main .t-sale-box {
         padding: 5px;
-        
     }
+
+    .top-sale-main .t-sale-box img{
+        height: 40px;
+    }
+
     .top-sale-main .row{
         box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.298);
     }

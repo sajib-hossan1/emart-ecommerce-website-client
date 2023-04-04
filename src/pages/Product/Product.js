@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import './Product.css'
 
 const Product = ({product}) => {
-    const {title, thumbnail, price, brand, rating, _id} = product;
+    const {title, thumbnail, price, brand, rating, id} = product;
     return (
         <div className="col-lg-3">
-            <Link className='product-link' to={`/productDetails/${_id}`}>
+            <Link className='product-link' to={`/productDetails/${id}`}>
                 <div className="product-box">
                     <div className="product-img">
                         <img src={thumbnail} alt="productImage" />
