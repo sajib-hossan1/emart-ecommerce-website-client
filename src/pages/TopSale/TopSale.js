@@ -11,7 +11,7 @@ const TopSale = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect( () => {
-        fetch("http://localhost:5000/topSale")
+        fetch("https://emart-server.vercel.app/topSale")
         .then(res => res.json())
         .then(data => setData(data))
         .finally(() => setLoading(false));
@@ -22,20 +22,28 @@ const TopSale = () => {
                 <h3><span>Top Sale</span> : This Week!</h3>
 
                 <div className="container">
-                    <div className="row">
+                    <div className="row rowShadow">
                         {/* react skleton loading */}
-                        <div className="d-flex justify-content-around">
-                            <div className='text-center'>
-                                { loading && <Skeleton height={180} width={290}/>}
-                                { loading && <Skeleton height={20} width={100}/>}
-                            </div>
-                            <div className='text-center'>
-                                { loading && <Skeleton height={180} width={290}/>}
-                                { loading && <Skeleton height={20} width={100}/>}
-                            </div>
-                            <div className='text-center'>
-                                { loading && <Skeleton height={180} width={290}/>}
-                                { loading && <Skeleton height={20} width={100}/>}
+                        <div className="container">
+                            <div className="row gx-3 pb-1">
+                                <div className='text-center col-lg-4 col-md-4 col-4'>
+                                    <div className="top-sale-box">
+                                        { loading && <Skeleton height={180} width={290}/>}
+                                        { loading && <Skeleton height={20} width={100}/>}
+                                    </div>
+                                </div>
+                                <div className='text-center col-lg-4 col-md-4 col-4'>
+                                    <div className="top-sale-box">
+                                        { loading && <Skeleton height={180} width={290}/>}
+                                        { loading && <Skeleton height={20} width={100}/>}
+                                    </div>
+                                </div>
+                                <div className='text-center col-lg-4 col-md-4 col-4'>
+                                    <div className="top-sale-box">
+                                        { loading && <Skeleton height={180} width={290}/>}
+                                        { loading && <Skeleton height={20} width={100}/>}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         {

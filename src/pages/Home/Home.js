@@ -6,8 +6,10 @@ import Features from '../Features/Features';
 import Partner from '../Partner/Partner';
 import TopSale from '../TopSale/TopSale';
 import './Home.css'
+import { useScrollTop } from '../../hooks/useScrollTop';
 
 const Home = () => {
+    useScrollTop();
     return (
         <div>
             <Banner/>

@@ -5,8 +5,10 @@ import { AuthContext } from '../../contexts/UserContext';
 import './Register.css'
 import { toast } from 'react-toastify';
 import DynaTitle from '../../Helmet/DynaTitle'
+import { useScrollTop } from '../../hooks/useScrollTop';
 
 const Register = () => {
+    useScrollTop();
     const [errorMessage, setErrorMessage] = useState("");
 
     const { setUser, createUser, googleSignIn, emailVerification, loading, setLoading} = useContext(AuthContext);

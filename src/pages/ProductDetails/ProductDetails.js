@@ -17,8 +17,10 @@ import { FreeMode, Navigation, Thumbs } from "swiper";
 // react skleton
 import 'react-loading-skeleton/dist/skeleton.css'
 import Skeleton from 'react-loading-skeleton';
+import { useScrollTop } from '../../hooks/useScrollTop';
 
 const ProductDetails = () => {
+    useScrollTop();
     const [loading, setLoading] = useState(false);
     const {id} = useParams();
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -28,7 +30,7 @@ const ProductDetails = () => {
 
     useEffect( () => {
         setLoading(true)
-        fetch(`http://localhost:5000/product/${id}`)
+        fetch(`https://emart-server.vercel.app/product/${id}`)
         .then(res =>  res.json())
         .then(data => setData(data))
         .finally(() => setLoading(false))
@@ -50,7 +52,6 @@ const ProductDetails = () => {
         };
         setquantity(quantity - 1 );
     };
-
 
     return (
         <div className='prod-details-main pt-5 pb-5'>
@@ -88,8 +89,8 @@ const ProductDetails = () => {
                                                             },
                                                             largeImage: {
                                                                 src: elem,
-                                                                width: 1426,
-                                                                height: 1500
+                                                                width: 1126,
+                                                                height: 1200
                                                             },
                                                             lensStyle: { backgroundColor: 'rgba(0,0,0,.6)' }
                                                         }}

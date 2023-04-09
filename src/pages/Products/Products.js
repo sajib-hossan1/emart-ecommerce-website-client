@@ -5,14 +5,16 @@ import Product from '../Product/Product';
 // react skleton
 import 'react-loading-skeleton/dist/skeleton.css'
 import Skeleton from 'react-loading-skeleton';
+import { useScrollTop } from '../../hooks/useScrollTop';
 
 const Products = () => {
+    useScrollTop();
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 
     // load data from database
     useEffect( () => {
-        fetch("http://localhost:5000/products")
+        fetch("https://emart-server.vercel.app/products")
         .then(res => res.json())
         .then(data => setProducts(data))
         .finally(() => setLoading(false));

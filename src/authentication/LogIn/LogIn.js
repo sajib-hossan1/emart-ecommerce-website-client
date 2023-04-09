@@ -6,9 +6,11 @@ import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import { toast } from 'react-toastify';
 import DynaTitle from '../../Helmet/DynaTitle';
+import { useScrollTop } from '../../hooks/useScrollTop';
 
 
 const LogIn = () => {
+    useScrollTop();
     const [errorMessage, setErrorMessage] = useState("");
 
     // states for modals
@@ -159,8 +161,6 @@ const LogIn = () => {
         });
         
     };
-
-    console.log(loading);
 
     return (
         <div className='login-main mb-5'>
