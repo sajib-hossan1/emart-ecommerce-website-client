@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../contexts/UserContext';
 import './Navbar.css'
 
 const Navbar = () => {
+    const [key, setKey] = useState("");
     const {user, logOut, setUser} = useContext(AuthContext);
 
     const signOut = () => {
@@ -13,7 +14,11 @@ const Navbar = () => {
             toast.success("Log Out successfully😉");
             setUser({});
         })
-    }
+    };
+
+    const setValueStr = () => {
+        setKey("")
+    };
 
     return (
         <div id='home' className='sticky-top'>
@@ -31,9 +36,9 @@ const Navbar = () => {
                             }
                         </div>
                     </div>
-                    <form className="d-flex search-form" role="search">
-                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                        <button className="btn btn-outline-success" type="submit">Search</button>
+                    <form className="d-flex search-form align-items-center" role="search">
+                        <input onChange={ (e) => setKey(e.target.value)} value={key} className="form-control me-2" type="search" name='search' placeholder="Search" aria-label="Search"/>
+                        <Link onClick={setValueStr} className='search-key-link' to={`/search/${key}`}>Search</Link>
                     </form>
                 </div>
             </nav>

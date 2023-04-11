@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import './Products.css'
+import { useScrollTop } from '../../hooks/useScrollTop';
+import { useParams } from 'react-router-dom';
 import Product from '../Product/Product';
-
+import Skeleton from 'react-loading-skeleton';
 // react skleton
 import 'react-loading-skeleton/dist/skeleton.css'
-import Skeleton from 'react-loading-skeleton';
-import { useScrollTop } from '../../hooks/useScrollTop';
 
-const Products = () => {
+const SearchProducts = () => {
     useScrollTop();
+    const key = useParams();
+    const searchKey = key.key.toLowerCase();
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -16,17 +17,23 @@ const Products = () => {
     useEffect( () => {
         fetch("https://emart-server.vercel.app/products")
         .then(res => res.json())
-        .then(data => setProducts(data))
+        .then(data => {
+            const filter = data?.filter(item => item.title.toLowerCase().includes(searchKey));
+            setProducts(filter);
+        })
         .finally(() => setLoading(false));
-    }, []);
 
-    const filter = products?.filter(item => item.title.toLowerCase().includes(""));
-    console.log(filter);
+        
+    }, [searchKey]);
+
     
+
     return (
-        <div className='products-main'>
+        <div className='Serc-products-main'>
             <div className="container">
-                <h2 className='p-3 text-center'>All Products For You</h2>
+                <h2 className='pt-3'>
+                    { products.length === 0 ? "Products not found. Try another name." : "Search results"}
+                </h2>
                 <div className="row g-4 m-0">
                     {/* react skleton loading */}
                     { loading &&
@@ -80,4 +87,4 @@ const Products = () => {
     );
 };
 
-export default Products;
+export default SearchProducts;

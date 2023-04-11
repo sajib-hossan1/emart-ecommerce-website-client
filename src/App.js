@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Products from "./pages/Products/Products";
 import CatgProducts from "./pages/CatgProducts/CatgProducts";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
+import SearchProducts from "./pages/SearchProducts/SearchProducts";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Route exact path="/products/" element={<Products />} />
             <Route exact path="/productDetails/:id" element={<ProductDetails />} />
             <Route exact path="/category/:categ" element={<CatgProducts />} />
+            <Route exact path="/search/:key" element={<SearchProducts />} />
             <Route exact path="/login" element={<LogIn />} />
             <Route exact path="/register" element={<Register />} />
 
