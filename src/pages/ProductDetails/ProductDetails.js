@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './ProductDetails.css'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import ReactImageMagnify from 'react-image-magnify';
 import ReactStars from "react-rating-stars-component";
 
@@ -26,7 +26,7 @@ const ProductDetails = () => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const [data, setData] = useState({});
     const {title, brand , rating, stock, price, description ,images} = data;
-    const [quantity, setquantity] = useState(0);
+    const [quantity, setquantity] = useState(1);
 
     useEffect( () => {
         setLoading(true)
@@ -34,7 +34,7 @@ const ProductDetails = () => {
         .then(res =>  res.json())
         .then(data => setData(data))
         .finally(() => setLoading(false))
-    }, []);
+    }, [id]);
 
     
     const rimProps =  {
@@ -50,7 +50,7 @@ const ProductDetails = () => {
         setquantity(quantity + 1 );
     };
     const decreaseQuan = () => {
-        if(quantity === 0){
+        if(quantity === 1){
             return;
         };
         setquantity(quantity - 1 );
@@ -150,13 +150,13 @@ const ProductDetails = () => {
                                 {loading ? <Skeleton height={20} width={120}/> : stock} Stocks Left
                             </span>
                             <h5 className='price'>Price : {loading ? <Skeleton height={30} width={70}/> : `$${price}`}</h5>
-                            <p className='quantity'>
+                            <p className='quantity mb-5'>
                                 Quantity :  <button onClick={decreaseQuan} className="quan-btn ms-2">-</button>
                                             <span>{quantity}</span>
                                             <button onClick={increaseQuan} className="quan-btn">+</button>
                             </p>
-                            <button className="add-to-cart-btn">Add To Cart</button>
-                            <p>{loading ? <Skeleton height={100}/> : description}</p>
+                            <Link to="/cart" className="add-to-cart-btn">Add To Cart</Link>
+                            <p className='mt-4'>{loading ? <Skeleton height={100}/> : description}</p>
                         </div>
                     </div>
                 </div>

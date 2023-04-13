@@ -3,6 +3,7 @@ import { useScrollTop } from '../../hooks/useScrollTop';
 import { useParams } from 'react-router-dom';
 import Product from '../Product/Product';
 import Skeleton from 'react-loading-skeleton';
+import './SearchProducts.css'
 // react skleton
 import 'react-loading-skeleton/dist/skeleton.css'
 
@@ -31,9 +32,9 @@ const SearchProducts = () => {
     return (
         <div className='Serc-products-main'>
             <div className="container">
-                <h2 className='pt-3'>
-                    { products.length === 0 ? "Products not found. Try another name." : "Search results"}
-                </h2>
+                <div className="prod-not-found">
+                    { products.length === 0 && !loading ? <h3>Products not found. Try another name.</h3> : <h2>Search results</h2>}
+                </div>
                 <div className="row g-4 m-0">
                     {/* react skleton loading */}
                     { loading &&

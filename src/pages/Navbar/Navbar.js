@@ -1,11 +1,10 @@
-import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../contexts/UserContext';
 import './Navbar.css'
 
 const Navbar = () => {
-    const [key, setKey] = useState("");
     const {user, logOut, setUser} = useContext(AuthContext);
 
     const signOut = () => {
@@ -16,9 +15,17 @@ const Navbar = () => {
         })
     };
 
-    const setValueStr = () => {
-        setKey("")
-    };
+    const navigate = useNavigate();
+
+
+    const searchResults = (e) => {
+        e.preventDefault();
+        const query = e.target.search.value;
+        if(!query){return};
+        navigate(`/search/${query}`)
+
+        e.target.search.value = "";
+    }
 
     return (
         <div id='home' className='sticky-top'>
@@ -36,9 +43,9 @@ const Navbar = () => {
                             }
                         </div>
                     </div>
-                    <form className="d-flex search-form align-items-center" role="search">
-                        <input onChange={ (e) => setKey(e.target.value)} value={key} className="form-control me-2" type="search" name='search' placeholder="Search" aria-label="Search"/>
-                        <Link onClick={setValueStr} className='search-key-link' to={`/search/${key}`}>Search</Link>
+                    <form onSubmit={searchResults} className="d-flex search-form align-items-center">
+                        <input className="form-control me-2" type="search" name='search' placeholder="Search" aria-label="Search"/>
+                        <button type='submit' className='search-btn'>Search</button>
                     </form>
                 </div>
             </nav>

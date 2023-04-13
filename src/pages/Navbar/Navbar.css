@@ -36,11 +36,13 @@
     width: 100%;
 }
 
-.search-key-link {
+.search-btn {
+    border: none;
     background-color: #F85506;
     text-decoration: none;
     color: white;
     padding: 5px 18px;
+    font-weight: 500;
 }
 
 

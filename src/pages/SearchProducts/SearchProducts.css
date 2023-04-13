@@ -1,0 +1,19 @@
+.Serc-products-main {
+    background-color: aliceblue;
+    padding-bottom: 50px;
+}
+
+.prod-not-found h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+}
+
+.prod-not-found h2 {
+    padding-top: 15px;
+}
+
+.prod-not-found h3 {
+    font-weight: 400;
+}
