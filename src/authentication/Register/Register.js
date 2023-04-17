@@ -1,6 +1,6 @@
 import { updateProfile } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/UserContext';
 import './Register.css'
 import { toast } from 'react-toastify';
@@ -46,6 +46,10 @@ const Register = () => {
         };
     };
 
+
+    // redirect location
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
 
     
     // user email verification
@@ -107,7 +111,7 @@ const Register = () => {
             setUser(user);
             notify("userCreated");
             setLoading(false);
-            navigate("/");
+            navigate(from, {replace : true});
         })
         .catch( error => {
             setLoading(false);
@@ -130,7 +134,7 @@ const Register = () => {
             setUser(user);
             setLoading(false);
             notify("googleSignIn");
-            navigate("/");
+            navigate(from, {replace : true});
         })
         .catch( error => {
             const errorMessage = error.message;
@@ -166,7 +170,7 @@ const Register = () => {
                             }
                             { errorMessage && <p className='m-0 text-danger'>{errorMessage}</p>}
                         </div>
-                        <button type="submit" className="btn btn-primary mt-2 mb-2">Submit</button>
+                        <button type="submit" className="btn btn-primary mt-2 mb-2">Register</button>
                     </form>
                     <p>Already haven an account? Please <Link to="/login">Log In Here</Link></p>
                     <hr />

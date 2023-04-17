@@ -19,9 +19,6 @@ const Products = () => {
         .then(data => setProducts(data))
         .finally(() => setLoading(false));
     }, []);
-
-    const filter = products?.filter(item => item.title.toLowerCase().includes(""));
-    console.log(filter);
     
     return (
         <div className='products-main'>

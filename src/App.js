@@ -11,6 +11,8 @@ import Products from "./pages/Products/Products";
 import CatgProducts from "./pages/CatgProducts/CatgProducts";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import SearchProducts from "./pages/SearchProducts/SearchProducts";
+import Cart from "./pages/Cart/Cart";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
 
 
 function App() {
@@ -20,7 +22,10 @@ function App() {
         <Routes>
             <Route exact path="/" element={<Home />} />
             <Route exact path="/home" element={<Home />} />
-            <Route exact path="/products/" element={<Products />} />
+            <Route exact path="/products" element={<Products />} />
+            <Route exact path="/cart" element={<PrivateRoute>
+              <Cart />
+            </PrivateRoute>} />
             <Route exact path="/productDetails/:id" element={<ProductDetails />} />
             <Route exact path="/category/:categ" element={<CatgProducts />} />
             <Route exact path="/search/:key" element={<SearchProducts />} />

@@ -1,12 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../contexts/UserContext';
 import './Navbar.css'
+import { CartContexts } from '../../contexts/CartContext';
 
 const Navbar = () => {
     const {user, logOut, setUser} = useContext(AuthContext);
+    const {cartItems} = useContext(CartContexts);
+    const [cartCount, setCartCount] = useState(0);
 
+    // get updated cart
+    useEffect( () => {
+        setCartCount(cartItems ? cartItems.length : 0);
+    }, [cartItems])
+
+
+    // user sign out function
     const signOut = () => {
         logOut()
         .then( () => {
@@ -25,7 +35,7 @@ const Navbar = () => {
         navigate(`/search/${query}`)
 
         e.target.search.value = "";
-    }
+    };
 
     return (
         <div id='home' className='sticky-top'>
@@ -35,7 +45,7 @@ const Navbar = () => {
                     <div>
                         <div className="nav-links">
                             <Link className="nav-link" to="/">HOME</Link>
-                            <Link className="nav-link" to="/cart"><i className="fa-solid fa-cart-shopping"/> CART</Link>
+                            <Link className="nav-link" to="/cart"><i className="fa-solid fa-cart-shopping"/> CART<sup className='h5 p-1'>{cartCount}</sup></Link>
                             {
                                 user.email ? <Link onClick={signOut} className="nav-link" to="/">LOGOUT</Link>
                                 :

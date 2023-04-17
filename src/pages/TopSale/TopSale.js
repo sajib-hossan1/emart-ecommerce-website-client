@@ -24,7 +24,7 @@ const TopSale = () => {
                 <div className="container">
                     <div className="row rowShadow">
                         {/* react skleton loading */}
-                        <div className="container">
+                        { loading && <div className="container">
                             <div className="row gx-3 pb-1">
                                 <div className='text-center col-lg-4 col-md-4 col-4'>
                                     <div className="top-sale-box">
@@ -45,7 +45,7 @@ const TopSale = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>}
                         {
                             data.map(item =>
                                 <div key={item._id} className="col-lg-4 col-md-4 col-sm-4 col-4">

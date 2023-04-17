@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './ProductDetails.css'
 import { Link, useParams } from 'react-router-dom';
 import ReactImageMagnify from 'react-image-magnify';
@@ -18,15 +18,19 @@ import { FreeMode, Navigation, Thumbs } from "swiper";
 import 'react-loading-skeleton/dist/skeleton.css'
 import Skeleton from 'react-loading-skeleton';
 import { useScrollTop } from '../../hooks/useScrollTop';
+import { CartContexts } from '../../contexts/CartContext';
 
 const ProductDetails = () => {
     useScrollTop();
+    const {addToCart, cartItems} = useContext(CartContexts);
     const [loading, setLoading] = useState(false);
     const {id} = useParams();
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const [data, setData] = useState({});
     const {title, brand , rating, stock, price, description ,images} = data;
     const [quantity, setquantity] = useState(1);
+    const [productExist, setProductExist] = useState(false);
+
 
     useEffect( () => {
         setLoading(true)
@@ -55,6 +59,16 @@ const ProductDetails = () => {
         };
         setquantity(quantity - 1 );
     };
+
+    useEffect( () => {
+        const isProductExist = cartItems.map( curElem => {
+            if(curElem.id === Number(id)){
+                return setProductExist(true);
+            }else{
+                return curElem;
+            }
+        })
+    }, [id]);
 
     return (
         <div className='prod-details-main pt-5 pb-5'>
@@ -155,7 +169,11 @@ const ProductDetails = () => {
                                             <span>{quantity}</span>
                                             <button onClick={increaseQuan} className="quan-btn">+</button>
                             </p>
-                            <Link to="/cart" className="add-to-cart-btn">Add To Cart</Link>
+                            { productExist ? 
+                            <Link to="/cart" className="add-to-cart-btn">Go To Cart</Link>
+                            :
+                            <Link onClick={() => addToCart(data, quantity)} to="/cart" className="add-to-cart-btn">Add To Cart</Link>
+                            }
                             <p className='mt-4'>{loading ? <Skeleton height={100}/> : description}</p>
                         </div>
                     </div>

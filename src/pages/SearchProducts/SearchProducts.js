@@ -12,6 +12,7 @@ const SearchProducts = () => {
     const key = useParams();
     const searchKey = key.key.toLowerCase();
     const [products, setProducts] = useState([]);
+    // const [userSortingValue, setUserSortingValue] = useState("price");
     const [loading, setLoading] = useState(true);
 
     // load data from database
@@ -24,9 +25,25 @@ const SearchProducts = () => {
         })
         .finally(() => setLoading(false));
 
-        
-    }, [searchKey]);
+    }, [searchKey, products]);
 
+    // useEffect( () => {
+    //     // // asscending order
+    //     if(userSortingValue === "price"){
+    //         const lowPriceSorting = (a,b) => {
+    //             return a.price - b.price;
+    //         }
+    //         const lowPriceFilter = products.sort(lowPriceSorting) ;
+    //         setProducts(lowPriceFilter);
+    //     }
+
+    // }, [userSortingValue]);
+
+    // const getSortingValue = () => {
+    //     const value = document.getElementById("sort");
+    //     const userSortValue = value.options[value.selectedIndex].value;
+    //     setUserSortingValue(userSortValue);
+    // };
     
 
     return (
@@ -35,6 +52,15 @@ const SearchProducts = () => {
                 <div className="prod-not-found">
                     { products.length === 0 && !loading ? <h3>Products not found. Try another name.</h3> : <h2>Search results</h2>}
                 </div>
+                {/* <form action="#">
+                    <label htmlFor="sort"></label>
+                    <select name='sort' id='sort' onClick={getSortingValue}>
+                        <option value="lowest">Price (Low to High)</option>
+                        <option value="highest">Price (High to Low)</option>
+                        <option value="asscending">A - Z</option>
+                        <option value="deasscending">Z - A</option>
+                    </select>
+                </form> */}
                 <div className="row g-4 m-0">
                     {/* react skleton loading */}
                     { loading &&

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import './LogIn.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/UserContext';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
@@ -53,6 +53,11 @@ const LogIn = () => {
     };
 
 
+    // redirect location
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+
+
     // user login authentication
     const handleLogin = e => {
         e.preventDefault();
@@ -83,7 +88,7 @@ const LogIn = () => {
             setLoading(false);
             setUser(user);
             notify("loggedIn");
-            navigate("/");
+            navigate(from, {replace : true});
         })
         .catch( error => {
             setLoading(false);
@@ -138,7 +143,7 @@ const LogIn = () => {
             setUser(user);
             notify("googleSignIn");
             setLoading(false);
-            navigate("/");
+            navigate(from, {replace : true});
         })
         .catch( error => {
             const errorMessage = error.message;
@@ -186,7 +191,7 @@ const LogIn = () => {
                             <p onClick={handleForgetPassword} className='btn btn-link'>Forget Password?</p>
                             { errorMessage && <p className='m-0 text-danger'>{errorMessage}</p>}
                         </div>
-                        <button type="submit" className="btn btn-primary mt-2 mb-2">Submit</button>
+                        <button type="submit" className="btn btn-primary mt-2 mb-2">Log In</button>
                     </form>
                     <p>Havent't any account? Please <Link to="/register">Register Here</Link></p>
                     <hr />

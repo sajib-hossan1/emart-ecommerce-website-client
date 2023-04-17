@@ -1,0 +1,50 @@
+.cart-main {
+    margin: 50px 0;
+}
+
+.cart-row {
+    box-shadow: 2px 8px 20px rgba(0, 0, 0, 0.298);
+    border-radius: 20px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+.grand-total-box {
+    background-color: aliceblue;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.grand-total-box span {
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.grand-total-box hr {
+    margin-bottom: 5px;
+}
+
+.grand-total-box .price-tax-charge div {
+    margin-bottom: 10px;
+}
+
+.grand-total-box .cupon button {
+    border: 2px solid red;
+    background-color: transparent;
+    font-weight: 600;
+    margin-right: 6px;
+    padding: 1px 7px;
+    font-size: 13px;
+}
+
+.grand-total-box .cupon p {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.grand-total-box .cupon-code .cupon-submit-btn {
+    border: none;
+    background-color: #F85506;
+    color: white;
+    padding: 5px 20px;
+}
