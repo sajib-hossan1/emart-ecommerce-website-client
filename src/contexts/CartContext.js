@@ -80,8 +80,13 @@ const CartContext = ({children}) => {
         toast.warning("Product Removed😊")
     };
 
+    // clear all the cart items
+    const clearCart = () => {
+        setCartItems([]);
+    }
 
-    const cartAction = {cartItems, addToCart, removeFromCart, incQuantity, decQuantity};
+
+    const cartAction = {cartItems, addToCart, removeFromCart, incQuantity, decQuantity, clearCart};
     return (
         <CartContexts.Provider value={cartAction}>
             {children}

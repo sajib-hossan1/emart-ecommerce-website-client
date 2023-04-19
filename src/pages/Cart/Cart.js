@@ -4,10 +4,11 @@ import './Cart.css'
 import CartSingleItem from '../CartSingleItem/CartSingleItem';
 import { toast } from 'react-toastify';
 import { useScrollTop } from '../../hooks/useScrollTop';
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
     useScrollTop();
-    const {cartItems} = useContext(CartContexts);
+    const {cartItems, clearCart} = useContext(CartContexts);
 
     const [grandTotal , setGrandTotal] = useState(0);
     const [cupon, setCupon] = useState(false);
@@ -15,10 +16,10 @@ const Cart = () => {
     const totalItems = cartItems.reduce( (prev, item) => prev + item.quantity, 0 );
     const subTotal = cartItems.reduce( (prev, item) => prev + item.price * item.quantity, 0 );
     const tax = cartItems.reduce( (prev, item) => ((prev + item.price * item.quantity) * 0.10).toFixed(2) , 0 );
-    const delivaryCharge = 15;
+    const deliveryCharge = 15;
     
     useEffect( () => {
-        setGrandTotal(subTotal + parseFloat(tax) + delivaryCharge);
+        setGrandTotal(subTotal + parseFloat(tax) + deliveryCharge);
     }, [subTotal, tax])
 
     const cuponcode = e => {
@@ -53,6 +54,13 @@ const Cart = () => {
     return (
         <div className='cart-main'>
             <div className="container">
+                <div className="cart-main-title">
+                    { 
+                        cartItems.length === 0 ? <h3 className=''>You do not have any product.</h3> : 
+                        cartItems.length > 1 ? <h3 className='mb-3'>Your Cart Items</h3> : <h3>Your Cart Item</h3>
+                    }
+                </div>
+                { cartItems.length >= 1 && 
                 <div className="row cart-row">
                     <div className="col-lg-12">
                         <div className="row">
@@ -62,6 +70,11 @@ const Cart = () => {
                                         <CartSingleItem key={index} item={item} />
                                     )
                                 }
+                                <div className="clear-all-product">
+                                    <button onClick={clearCart}>
+                                        { cartItems.length > 1 ? "Clear All Products" : "Clear Product"}
+                                    </button>
+                                </div>
                                 <div className="sub-total text-end">
                                     <hr />
                                     <h5>Sub Total ({totalItems} {totalItems === 1 ? "Item" : "Items"}) : ${subTotal}</h5>
@@ -80,8 +93,8 @@ const Cart = () => {
                                             <span className='text-end'>${tax}</span>
                                         </div>
                                         <div className='d-flex justify-content-between'>
-                                            <span>Deivery Charge : </span>
-                                            <span className='text-end'>${delivaryCharge}</span>
+                                            <span>Delivery Charge : </span>
+                                            <span className='text-end'>${deliveryCharge}</span>
                                         </div>
                                     </div>
                                     <hr />
@@ -102,11 +115,14 @@ const Cart = () => {
                                             <input className='cupon-submit-btn' type="submit" />
                                         </form>
                                     </div>
+                                    <div className="mt-5">
+                                        <Link to="/delivery" className='delivery-btn'>Proceed To Delivery</Link>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>}
             </div>
         </div>
     );
