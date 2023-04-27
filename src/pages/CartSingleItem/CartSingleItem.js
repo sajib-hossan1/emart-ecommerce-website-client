@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import './CartSingleItem.css'
 import { CartContexts } from '../../contexts/CartContext';
+import { Link } from 'react-router-dom';
 
 const CartSingleItem = (props) => {
     const {removeFromCart, incQuantity, decQuantity} = useContext(CartContexts);
@@ -14,7 +15,9 @@ const CartSingleItem = (props) => {
                 </div>
                 <div className="prod-desc">
                     <div>
-                        <h4>{title}</h4>
+                        <h4>
+                            <Link style={{color: "black", textDecoration: "none"}} to={`/productDetails/${id}`} >{title}</Link>
+                        </h4>
                         <p className='brand'>Brand : {brand}</p>
                         <p className='brand'>Stock : {stock}</p>
                         <p className='price'>Price : ${price}</p>

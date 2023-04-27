@@ -5,6 +5,7 @@ import CartSingleItem from '../CartSingleItem/CartSingleItem';
 import { toast } from 'react-toastify';
 import { useScrollTop } from '../../hooks/useScrollTop';
 import { Link } from 'react-router-dom';
+import DynaTitle from '../../Helmet/DynaTitle';
 
 const Cart = () => {
     useScrollTop();
@@ -15,7 +16,7 @@ const Cart = () => {
 
     const totalItems = cartItems.reduce( (prev, item) => prev + item.quantity, 0 );
     const subTotal = cartItems.reduce( (prev, item) => prev + item.price * item.quantity, 0 );
-    const tax = cartItems.reduce( (prev, item) => ((prev + item.price * item.quantity) * 0.10).toFixed(2) , 0 );
+    const tax = subTotal * ( 10 / 100);
     const deliveryCharge = 15;
     
     useEffect( () => {
@@ -27,6 +28,9 @@ const Cart = () => {
         let cupon1 = "SAJIB";
         const userInput = e.target.text.value;
 
+        if(subTotal < 100){
+            return toast.info("Make atleast $100 sub total amount")
+        }
         if(cupon === true){
             e.target.text.value = "";
             return toast.info("You already used a cupon😊.")
@@ -53,6 +57,7 @@ const Cart = () => {
 
     return (
         <div className='cart-main'>
+            <DynaTitle title="Cart"/>
             <div className="container">
                 <div className="cart-main-title">
                     { 
@@ -90,7 +95,7 @@ const Cart = () => {
                                         </div>
                                         <div className='d-flex justify-content-between'>
                                             <span>Tax : </span>
-                                            <span className='text-end'>${tax}</span>
+                                            <span className='text-end'>${tax.toFixed(2)}</span>
                                         </div>
                                         <div className='d-flex justify-content-between'>
                                             <span>Delivery Charge : </span>
@@ -116,7 +121,7 @@ const Cart = () => {
                                         </form>
                                     </div>
                                     <div className="mt-5">
-                                        <Link to="/delivery" className='delivery-btn'>Proceed To Delivery</Link>
+                                        <Link to="/shipping" className='delivery-btn'>Proceed To Delivery</Link>
                                     </div>
                                 </div>
                             </div>

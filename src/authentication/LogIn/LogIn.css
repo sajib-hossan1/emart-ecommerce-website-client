@@ -11,6 +11,49 @@
     border-radius: 20px;
 }
 
+.log-in-btn {
+    border: none;
+    background-color: #F85506;
+    text-decoration: none;
+    color: white;
+    padding: 5px 24px;
+    font-weight: 500;
+}
+
+
+.email-verify-btn {
+    font-size: 14px;
+    border: none;
+    background-color: #F85506;
+    text-decoration: none;
+    color: white;
+    padding: 5px 24px;
+    font-weight: 500;
+}
+
+
+.google-btn {
+    border: none;
+    background-color: #F85506;
+    text-decoration: none;
+    color: white;
+    padding: 5px 24px;
+    font-weight: 500;
+}
+
+.google-btn img {
+    width: 34px;
+}
+
+.email-verify-btn {
+    border: none;
+    background-color: #F85506;
+    text-decoration: none;
+    color: white;
+    padding: 5px 24px;
+    font-weight: 500;
+    margin-top: 15px;
+}
 
 @media only screen and (max-width:768px){
     .login-box {

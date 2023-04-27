@@ -4,11 +4,27 @@ import { toast } from 'react-toastify';
 import { AuthContext } from '../../contexts/UserContext';
 import './Navbar.css'
 import { CartContexts } from '../../contexts/CartContext';
+import dummyUser from '../../assets/dummy-user.png'
+import { useRef } from 'react';
 
 const Navbar = () => {
     const {user, logOut, setUser} = useContext(AuthContext);
     const {cartItems} = useContext(CartContexts);
     const [cartCount, setCartCount] = useState(0);
+    const [profileOpen , setProfileOpen] = useState(false);
+    const profileMenu = useRef(null);
+
+    useEffect( () => {
+        document.addEventListener("click", outsideClick, true);
+    }, []);
+
+    const outsideClick = (e) => {
+        if(!profileMenu.current.contains(e.target)){
+            setProfileOpen(false)
+        }
+    }
+
+    const userImage = user.photoURL;
 
     // get updated cart
     useEffect( () => {
@@ -47,7 +63,17 @@ const Navbar = () => {
                             <Link className="nav-link" to="/">HOME</Link>
                             <Link className="nav-link" to="/cart"><i className="fa-solid fa-cart-shopping"/> CART<sup className='h5 p-1'>{cartCount}</sup></Link>
                             {
-                                user.email ? <Link onClick={signOut} className="nav-link" to="/">LOGOUT</Link>
+                                user.email ? 
+                                <div ref={profileMenu} onClick={ () => setProfileOpen(!profileOpen)} className="user-profile">
+                                    <img className='img-fluid' src={userImage ? userImage : dummyUser} alt="" />
+                                    <div className={ profileOpen ? "profile-details display" : "profile-details" } >
+                                        <Link className='prodd-link' to="/profile">Profile</Link>
+                                        <hr className='pb-0 mt-1 mb-1 '/>
+                                        <Link className='prodd-link' to="/my-orders">My Orders</Link>
+                                        <hr className='pb-0 mt-1 mb-1 '/>
+                                        <Link onClick={signOut} className='prodd-link' to="/">Log Out</Link>
+                                    </div>
+                                </div>
                                 :
                                 <Link className="nav-link" to="/login">LOGIN</Link>
                             }

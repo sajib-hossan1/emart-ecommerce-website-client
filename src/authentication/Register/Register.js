@@ -6,6 +6,7 @@ import './Register.css'
 import { toast } from 'react-toastify';
 import DynaTitle from '../../Helmet/DynaTitle'
 import { useScrollTop } from '../../hooks/useScrollTop';
+import googleIcon from '../../assets/googleIcon.png'
 
 const Register = () => {
     useScrollTop();
@@ -170,12 +171,15 @@ const Register = () => {
                             }
                             { errorMessage && <p className='m-0 text-danger'>{errorMessage}</p>}
                         </div>
-                        <button type="submit" className="btn btn-primary mt-2 mb-2">Register</button>
+                        <button type="submit" className="register-btn">Register</button>
                     </form>
                     <p>Already haven an account? Please <Link to="/login">Log In Here</Link></p>
                     <hr />
                     <div className='text-center'>
-                        <button onClick={googleSignInFunc} className="btn btn-primary">Google Sign In</button>
+                        <button onClick={googleSignInFunc} className="google-btn">
+                            <img className='img-fluid' src={googleIcon} alt="" />
+                            <span>Google Sign In</span>
+                        </button>
                     </div>
                 </div>
             </div>

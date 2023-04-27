@@ -13,6 +13,9 @@ import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import SearchProducts from "./pages/SearchProducts/SearchProducts";
 import Cart from "./pages/Cart/Cart";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
+import DeliveryInfo from "./pages/ShippingInfo/ShippingInfo";
+import MyOrders from "./pages/MyOrders/MyOrders";
+import UserProfile from "./pages/UserProfile/UserProfile";
 
 
 function App() {
@@ -31,6 +34,13 @@ function App() {
             <Route exact path="/search/:key" element={<SearchProducts />} />
             <Route exact path="/login" element={<LogIn />} />
             <Route exact path="/register" element={<Register />} />
+            <Route exact path="/shipping" element={<DeliveryInfo />} />
+            <Route exact path="/my-orders" element={<PrivateRoute>
+              <MyOrders/>
+            </PrivateRoute>} />
+            <Route exact path="/profile" element={<PrivateRoute>
+              <UserProfile/>
+            </PrivateRoute>} />
 
             
             <Route exact path="*" element={<NotFound />} />

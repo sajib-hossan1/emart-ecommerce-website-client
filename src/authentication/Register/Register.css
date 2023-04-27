@@ -11,6 +11,16 @@
     border-radius: 20px;
 }
 
+.register-btn {
+    border: none;
+    background-color: #F85506;
+    text-decoration: none;
+    color: white;
+    padding: 5px 24px;
+    font-weight: 500;
+    margin-top: 15px;
+}
+
 
 @media only screen and (max-width:768px){
     .register-box {

@@ -1,0 +1,22 @@
+.not-found-box {
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.not-found-box h1{
+    font-size: 60px;
+}
+
+.not-found-box .go-home-btn {
+    text-decoration: none;
+    color: white;
+    background-color: #F85506;
+    padding: 7px 25px;
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: 500;
+}

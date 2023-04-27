@@ -7,6 +7,7 @@ import { Modal } from 'react-responsive-modal';
 import { toast } from 'react-toastify';
 import DynaTitle from '../../Helmet/DynaTitle';
 import { useScrollTop } from '../../hooks/useScrollTop';
+import googleIcon from '../../assets/googleIcon.png'
 
 
 const LogIn = () => {
@@ -191,16 +192,19 @@ const LogIn = () => {
                             <p onClick={handleForgetPassword} className='btn btn-link'>Forget Password?</p>
                             { errorMessage && <p className='m-0 text-danger'>{errorMessage}</p>}
                         </div>
-                        <button type="submit" className="btn btn-primary mt-2 mb-2">Log In</button>
+                        <button type="submit" className="log-in-btn">Log In</button>
                     </form>
                     <p>Havent't any account? Please <Link to="/register">Register Here</Link></p>
                     <hr />
                     <div className="text-center">
-                        <button onClick={onOpenModal} className='btn btn-primary btn-sm'>E-mail Verification</button>
+                        <button onClick={onOpenModal} className='email-verify-btn'>E-mail Verification</button>
                     </div>
                     <hr />
                     <div className='text-center'>
-                        <button onClick={googleSignInFunc} className="btn btn-primary">Google Sign In</button>
+                        <button onClick={googleSignInFunc} className="google-btn">
+                            <img className='img-fluid' src={googleIcon} alt="" />
+                            <span>Google Sign In</span>
+                        </button>
                     </div>
                 </div>
 
@@ -220,7 +224,7 @@ const LogIn = () => {
                                         </div>
                                     </div>
                         }
-                        <button onClick={verifyEmail} type="submit" className="btn btn-primary mt-2 mb-2">Submit</button>
+                        <button onClick={verifyEmail} type="submit" className="email-verify-btn">Verify Email</button>
                     </form>
                 </Modal>
             </div>
