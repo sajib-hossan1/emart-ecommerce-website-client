@@ -1,0 +1,27 @@
+.myOrders-row {
+    box-shadow: 2px 8px 20px rgba(0, 0, 0, 0.298);
+    border-radius: 20px;
+    padding: 15px;
+}
+
+.order-product-box {
+    display: flex;
+    background: aliceblue;
+    padding: 10px;
+    border-radius: 7px;
+}
+
+.order-product-box .img-box {
+    width: 200px;
+    height: 150px;
+}
+
+.order-product-box .img-box img {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.order-product-box .order-product-details {
+    margin-left: 12px;
+}

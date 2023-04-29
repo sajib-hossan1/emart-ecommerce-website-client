@@ -14,6 +14,7 @@ const storedCart = () => {
 const CartContext = ({children}) => {
     const {user} = useContext(AuthContext);
     let [cartItems, setCartItems] = useState(storedCart);
+    const [totalAmount, setTotalAmount] = useState(0);
 
     // add data to local storage
     useEffect( () => {
@@ -86,7 +87,7 @@ const CartContext = ({children}) => {
     }
 
 
-    const cartAction = {cartItems, addToCart, removeFromCart, incQuantity, decQuantity, clearCart};
+    const cartAction = {cartItems, addToCart, removeFromCart, incQuantity, decQuantity, clearCart, setTotalAmount, totalAmount};
     return (
         <CartContexts.Provider value={cartAction}>
             {children}

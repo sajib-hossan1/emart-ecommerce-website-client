@@ -1,0 +1,16 @@
+.myOrders-main {
+    margin-top: 15px;
+    margin-bottom: 50px;
+}
+
+
+.myOrders-main .myOrders-title {
+    text-align: center;
+}
+
+.not-product-txt {
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -19,7 +19,7 @@ const Navbar = () => {
     }, []);
 
     const outsideClick = (e) => {
-        if(!profileMenu.current.contains(e.target)){
+        if(!profileMenu.current?.contains(e.target)){
             setProfileOpen(false)
         }
     }

@@ -9,7 +9,7 @@ import DynaTitle from '../../Helmet/DynaTitle';
 
 const Cart = () => {
     useScrollTop();
-    const {cartItems, clearCart} = useContext(CartContexts);
+    const {cartItems, clearCart, setTotalAmount} = useContext(CartContexts);
 
     const [grandTotal , setGrandTotal] = useState(0);
     const [cupon, setCupon] = useState(false);
@@ -22,7 +22,9 @@ const Cart = () => {
     useEffect( () => {
         setGrandTotal(subTotal + parseFloat(tax) + deliveryCharge);
     }, [subTotal, tax])
-
+    
+    setTotalAmount(grandTotal);
+    
     const cuponcode = e => {
         e.preventDefault();
         let cupon1 = "SAJIB";
@@ -105,7 +107,7 @@ const Cart = () => {
                                     <hr />
                                     <div className="grand-total d-flex justify-content-between">
                                         <span>Total : </span>
-                                        <span className='text-end'>${grandTotal}</span>
+                                        <span className='text-end'>${grandTotal.toFixed(2)}</span>
                                     </div>
                                     <div className="cupon">
                                         {cupon && <p className='text-end'>
